@@ -1,7 +1,7 @@
 // Application Configuration
 const config = {
     apiBaseUrl: 'http://localhost:8000',  // Change this to your actual API URL
-    tomtomApiKey: 'YOUR_TOMTOM_API_KEY'   // Replace with your TomTom API key
+    tomtomApiKey: 'Qqst70YPz8boMNRdGfbXk7vcMCNnJpYK'   // Replace with your TomTom API key
 };
 
 // DOM Elements
