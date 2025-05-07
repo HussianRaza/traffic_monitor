@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Monitoring System</title>
+    
+    <!-- TomTom Maps SDK -->
+    <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps.css'>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/maps/maps-web.min.js"></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.23.0/services/services-web.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Traffic Monitoring System</h1>
+            <div class="actions">
+                <button id="uploadModelsBtn">Upload Models</button>
+                <button id="uploadCSVBtn">Upload CSV Data</button>
+                <button id="sampleDataBtn">Load Sample Data</button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="map-overlay" id="legend">
+                    <h3>Legend</h3>
+                    <div class="legend-item">
+                        <div class="legend-color congestion-high"></div>
+                        <span>High Congestion</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color congestion-medium"></div>
+                        <span>Medium Congestion</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color congestion-low"></div>
+                        <span>Low Congestion</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color incident-yes"></div>
+                        <span>Incident</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color disruption-heavy"></div>
+                        <span>Heavy Disruption</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="stats">
+                    <h2>Traffic Statistics</h2>
+                    <div class="stat-item">
+                        <h3>Congestion Levels</h3>
+                        <div class="stat-data" id="congestionStats">
+                            <div>High: <span id="highCongestion">0</span></div>
+                            <div>Medium: <span id="mediumCongestion">0</span></div>
+                            <div>Low: <span id="lowCongestion">0</span></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Incidents</h3>
+                        <div class="stat-data" id="incidentStats">
+                            <div>Yes: <span id="yesIncident">0</span></div>
+                            <div>No: <span id="noIncident">0</span></div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Disruptions</h3>
+                        <div class="stat-data" id="disruptionStats">
+                            <div>Heavy: <span id="heavyDisruption">0</span></div>
+                            <div>Normal: <span id="normalDisruption">0</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="location-details">
+                    <h2>Location Details</h2>
+                    <div id="locationInfo">
+                        <p>Select a location marker on the map to view details.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Upload Model Modal -->
+    <div id="modelModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload ML Model</h2>
+            <form id="modelForm">
+                <div class="form-group">
+                    <label for="modelType">Model Type:</label>
+                    <select id="modelType" name="modelType" required>
+                        <option value="congestion">Congestion Model</option>
+                        <option value="incident">Incident Model</option>
+                        <option value="disruption">Disruption Model</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modelFile">Model File (.pkl):</label>
+                    <input type="file" id="modelFile" name="modelFile" accept=".pkl" required>
+                </div>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Upload CSV Modal -->
+    <div id="csvModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Upload CSV Data</h2>
+            <form id="csvForm">
+                <div class="form-group">
+                    <label for="csvFile">CSV File:</label>
+                    <input type="file" id="csvFile" name="csvFile" accept=".csv" required>
+                    <small>CSV must include latitude, longitude, and feature columns</small>
+                </div>
+                <button type="submit">Upload and Predict</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
